@@ -1,22 +1,5 @@
 <header class="text-xl font-semibold py-4 pl-8">MING WAI TOMMY CHAN | <span>Personal Portfolio</span></header>
-<main class="flex flex-col items-center justify-evenly min-h-[50vh] mt-10">
-  <h1 class="text-4xl font-bold flex-1 mb-2">Professional Experience</h1>
-  <section class="flex flex-col h-full w-full flex-2 items-center">
-    <article class="grid grid-cols-3 grid-rows-2 gap-2 gap-y-4 w-10/12 mb-4">
-      <h2 class="text-2xl font-semibold justify-self-start self-end">Ranial Systems</h2>
-      <h3 class="text-xl justify-self-center self-end">IoT System Engineer</h3>
-      <p class="justify-self-end self-end">Current Job</p>
-      <p class="col-span-full">Design and implement features for CognitEMS energy data processing platform UI (Angular)</p>
-      <p class="col-span-full">Processing and logging edge system data with Eclipse Kura, Java SpringBoot and PostgreSQL</p>
-      <p class="col-span-full">Writing Python scripts and cli tools to manage and test Modbus edge devices</p>
-    </article>
-    <article class="grid grid-cols-3 grid-rows-2 gap-2 gap-y-4 w-10/12 mb-4">
-      <h2 class="text-2xl font-semibold justify-self-start self-end">BNY Mellon</h2>
-      <h3 class="text-xl justify-self-center self-end">Middle office Software engineer</h3>
-      <p class="justify-self-end self-end">Jun 2023- May 2025</p>
-      <p class="col-span-full">Developed Restful API for internal client onboarding service with SpringBoot and integrated with existing Postgres DB</p>
-      <p class="col-span-full">Developed the UI of client onboarding service with Angular for ops team</p>
-      <p class="col-span-full">Maintained Ruby on Rails legacy financial report microservices and support daily issues and monthly release</p>
-    </article>
-  </section>
-</main>
+<a routerLink="/about-me" class="px-4 py-2 bg-blue-500 text-white rounded">About Me</a>
+<a routerLink="/job-experience" class="px-4 py-2 bg-blue-500 text-white rounded">Job Experience</a>
+
+<router-outlet></router-outlet>
