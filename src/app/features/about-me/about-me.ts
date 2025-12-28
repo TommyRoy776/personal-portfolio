@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-about-me',
   imports: [],
@@ -6,6 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './about-me.css',
 })
 export class AboutMe {
-  imageUrl = '/1762903323652.jpeg';
+  imageUrl: string;
+
+  constructor(@Inject(DOCUMENT) private document: Document) {
+    const base = this.document.getElementsByTagName('base')[0]?.href || '';
+    this.imageUrl = `${base}1762903323652.jpeg`;
+  }
 
 }
