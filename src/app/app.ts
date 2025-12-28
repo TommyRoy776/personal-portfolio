@@ -1,45 +1,63 @@
-import { Component, signal, OnInit, HostListener, effect } from '@angular/core';
-import { RouterOutlet, RouterLink, Router } from '@angular/router';
+import { Component, signal, OnInit, AfterViewInit, effect } from '@angular/core';
+import { Location } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 import { AboutMe } from './features/about-me/about-me';
+import { JobExperience } from './features/job-experience/job-experience';
+import { Header } from './layout/header/header';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AboutMe, RouterLink],
+  imports: [AboutMe, JobExperience, Header],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit {
-  constructor(private router: Router) {
+export class App implements OnInit, AfterViewInit {
+  constructor(
+    private location: Location,
+    private titleService: Title
+  ) {
     effect(() => {
-      const index = this.pageIndex();
-      this.setPage();
+      const page = this.currentPage();
+      console.log(page);
+      
+      // Update URL based on current page
+      if (page === 'Professional Experience') {
+        this.location.replaceState('/experience');
+        this.titleService.setTitle('Professional Experience - MING WAI TOMMY CHAN');
+      } else if (page === 'About Me') {
+        this.location.replaceState('/about-me');
+        this.titleService.setTitle('About Me - MING WAI TOMMY CHAN');
+      }
     });
   }
 
   ngOnInit(): void {
-    this.paths = this.router.config
-      .map(r => '/' + r.path)
-      .filter(p => p !== '/undefined');
-    this.pageIndex.set(0);
   }
+  
+  ngAfterViewInit(): void {
+    const sections = document.querySelectorAll('app-job-experience, app-about-me');
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const tagName = entry.target.tagName.toLowerCase();
+            if (tagName === 'app-job-experience') {
+              this.currentPage.set('Professional Experience');
+            } else if (tagName === 'app-about-me') {
+              this.currentPage.set('About Me');
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+  }
+  
   paths: string[] = [];
   pageIndex = signal(0);
   protected readonly title = signal('personal-portfolio');
-  setPage() {
-    this.router.navigate([this.paths[this.pageIndex()]]);
-  }
-
-  setPageIndex(deltaY: number) {
-    if (deltaY > 0 && this.pageIndex() > 0) {
-      this.pageIndex.update(i => i - 1);
-    } else if (deltaY < 0 && this.pageIndex() < this.paths.length - 1) {
-      this.pageIndex.update(i => i + 1);
-    }
-
-  }
-  @HostListener('window:wheel', ['$event'])
-  onWheel(event: WheelEvent) {
-    console.log('deltaY:', event.deltaY);
-    this.setPageIndex(event.deltaY)
-  }
+  currentPage = signal('Professional Experience');
 }
