@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output,EventEmitter } from '@angular/core';
+import { PageType } from '../../types/page.type';
 
 @Component({
   selector: 'app-header',
@@ -7,5 +8,11 @@ import { Component, Input } from '@angular/core';
   styleUrl: './header.css',
 })
 export class Header {
-  @Input() currentPage: string = '';
+  pages: PageType[] = ["Professional Experience","About Me"]
+  @Input() currentPage: PageType | '' = '';
+  @Output() currentPageChange = new EventEmitter<PageType>();
+
+  setCurrentPage(page: PageType) {
+    this.currentPageChange.emit(page);
+  }
 }
