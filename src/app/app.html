@@ -1,5 +1,5 @@
-<app-header [currentPage]="currentPage()"></app-header>
+<app-header [currentPage]="currentPage()" (currentPageChange)="handleHeaderNavigation($event)"></app-header>
 <div>
-    <app-job-experience></app-job-experience>
-    <app-about-me></app-about-me>
+    <app-job-experience id="Professional Experience"></app-job-experience>
+    <app-about-me id="About Me"></app-about-me>
 </div>

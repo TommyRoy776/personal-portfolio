@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { AboutMe } from './features/about-me/about-me';
 import { JobExperience } from './features/job-experience/job-experience';
 import { Header } from './layout/header/header';
+import { PageType } from './types/page.type';
 
 @Component({
   selector: 'app-root',
@@ -55,9 +56,24 @@ export class App implements OnInit, AfterViewInit {
 
     sections.forEach((section) => observer.observe(section));
   }
+
+  handleHeaderNavigation(page: PageType) {
+    this.currentPage.set(page);
+    const element = document.getElementById(page);
+    if (element) {
+      const headerOffset = 100; // Adjust this value for your header height
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  }  
   
   paths: string[] = [];
   pageIndex = signal(0);
   protected readonly title = signal('personal-portfolio');
-  currentPage = signal('Professional Experience');
+  currentPage = signal<PageType>('Professional Experience');
 }
