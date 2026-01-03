@@ -19,7 +19,6 @@ export class App implements OnInit, AfterViewInit {
   ) {
     effect(() => {
       const page = this.currentPage();
-      console.log(page);
       
       // Update URL based on current page
       if (page === 'Professional Experience') {
@@ -37,7 +36,6 @@ export class App implements OnInit, AfterViewInit {
   
   ngAfterViewInit(): void {
     const sections = document.querySelectorAll('app-job-experience, app-about-me');
-    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -74,6 +72,6 @@ export class App implements OnInit, AfterViewInit {
   
   paths: string[] = [];
   pageIndex = signal(0);
-  protected readonly title = signal('personal-portfolio');
+  // protected readonly title = signal('personal-portfolio');
   currentPage = signal<PageType>('Professional Experience');
 }
