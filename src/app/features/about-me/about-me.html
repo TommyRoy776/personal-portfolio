@@ -2,7 +2,10 @@
   <h1 class="text-4xl font-bold text-gray-900 mb-10 text-center">About Me</h1>
   <main>
     <section class="flex flex-row justify-evenly items-start flex-wrap gap-x-5">
-      <img [src]="imageUrl" class="object-contain max-w-sm rounded-4xl mb-4 flex-1" alt="FlushingTech">
+      <div class="image-container relative max-w-sm flex-1 mb-4">
+        <img [src]=`${this.base}flushingtech.jpg` class="object-contain rounded-4xl w-full" alt="FlushingTech">
+        <img [src]=`${this.base}1762903323652.jpeg` class="object-contain rounded-4xl w-full transition-opacity duration-500 absolute top-0 left-0" [style.opacity]="imageOpacity()" alt="Profile">
+      </div>
       <p class="align-text-top flex-2 max-w-max">
         I was burnout in my first job. I took a 6 months career break to get back my passion in tech. 
         If working on tech is all about money and career, it is stressful and boring. 
