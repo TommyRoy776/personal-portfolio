@@ -31,11 +31,10 @@ export class AboutMe implements OnInit, OnDestroy {
     const rect = element.getBoundingClientRect();
     const windowHeight = window.innerHeight;
     
-    // Calculate opacity based on scroll position
-    // When section enters viewport from bottom, start transition
-    console.log({top:rect.top,viewport:(windowHeight - rect.top) / windowHeight})
-    const scrollProgress = Math.max(0, Math.min(1, (windowHeight - rect.top*2.75) / windowHeight));
-    this.imageOpacity.set(scrollProgress);
+    // Fade in as section enters viewport, fade out as section bottom leaves
+    const fadeIn  = Math.max(0, Math.min(1, (windowHeight - rect.top) / (windowHeight * 0.6)));
+    const fadeOut = Math.max(0, Math.min(1, (rect.bottom - windowHeight * 0.3) / (windowHeight * 0.5)));
+    this.imageOpacity.set(Math.min(fadeIn, fadeOut));
   }
 
 }

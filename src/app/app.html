@@ -1,5 +1,6 @@
+<canvas id="cyberpunk-canvas"></canvas>
 <app-header [currentPage]="currentPage()" (currentPageChange)="handleHeaderNavigation($event)"></app-header>
-<div class="flex flex-col">
+<div class="flex flex-col relative z-10">
     <app-job-experience id="Professional Experience"></app-job-experience>
     <app-about-me id="About Me"></app-about-me>
 </div>
